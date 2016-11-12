@@ -5,7 +5,8 @@
   "description": "LINQ to JS port using ESnext iterators and generators.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage",
+    "watch": "jest --watch --coverage"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "babel-core": "6.18.2",
     "babel-jest": "17.0.0",
+    "babel-plugin-transform-runtime": "6.15.0",
     "babel-preset-latest": "6.16.0",
     "babel-preset-stage-0": "6.16.0",
     "jest": "17.0.0",

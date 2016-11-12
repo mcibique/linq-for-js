@@ -15,10 +15,6 @@ export default class Iterator {
   }
 
   toArray() {
-    let result = [];
-    for (let item of this) {
-      result.push(item);
-    }
-    return result;
+    return Array.from(this);
   }
 }
