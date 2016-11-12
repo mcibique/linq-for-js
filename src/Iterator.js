@@ -17,4 +17,18 @@ export default class Iterator {
   toArray() {
     return Array.from(this);
   }
+
+  first(condition) {
+    if (condition) {
+      return this.where(condition).first();
+    } else {
+      return this[Symbol.iterator]().next().value;
+    }
+  }
+
+  where(condition) {
+    // cannot use import WhereIterator from './WhereIterator' because of circular dependency
+    let WhereIterator = require('./WhereIterator').default;
+    return new WhereIterator(this, condition);
+  }
 }
