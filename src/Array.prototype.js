@@ -2,6 +2,9 @@ import WhereIterator from './WhereIterator';
 import Iterator from './Iterator';
 
 Object.assign(Array.prototype, {
+  any(condition) {
+    return new Iterator(this).any(condition);
+  },
   count(condition) {
     return new Iterator(this).count(condition);
   },

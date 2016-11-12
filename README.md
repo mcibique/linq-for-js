@@ -64,7 +64,7 @@ let first = array.first(item => item > 3);
 
 ```
 let array = [1, 2, 3, 4, 5];
-let first = array.count();
+let count = array.count();
 // 5
 ```
 
@@ -72,8 +72,24 @@ or
 
 ```
 let array = [1, 2, 3, 4, 5];
-let first = array.count(item => item > 3);
+let count = array.count(item => item > 3);
 // 2
+```
+
+## Any
+
+```
+let array = [1, 2, 3, 4, 5];
+let any = array.any();
+// true
+```
+
+or
+
+```
+let array = [1, 2, 3, 4, 5];
+let any = array.any(item => item > 3);
+// true
 ```
 
 ## Chaining
@@ -89,5 +105,12 @@ let first = array.where(item => item > 2).first();
 let array = [1, 2, 3, 4, 5];
 let first = array.where(item => item > 3).count();
 // 2
+```
+
+```
+// where + any
+let array = [1, 2, 3, 4, 5];
+let first = array.where(item => item > 3).any();
+// true
 ```
 

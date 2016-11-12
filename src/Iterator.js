@@ -14,6 +14,19 @@ export default class Iterator {
     return this.arr[Symbol.iterator]();
   }
 
+  any(condition) {
+    if (condition) {
+      for (let item of this) {
+        if (condition(item)) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      return !!this.first();
+    }
+  }
+
   count(condition) {
     if (condition) {
       return this.where(condition).count();

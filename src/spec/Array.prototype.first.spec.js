@@ -18,9 +18,18 @@ describe('Array.prototype.first', function () {
     });
 
     describe('and has condition', function () {
-      it('should return first item', function () {
-        result = array.first(item => item > 3);
-        expect(result).toBe(4);
+      describe('when any item matches the given condition', function () {
+        it('should return first item', function () {
+          result = array.first(item => item > 3);
+          expect(result).toBe(4);
+        });
+      });
+
+      describe('when no item matches the given condition', function () {
+        it('should return undefined', function () {
+          result = array.first(item => item > 6);
+          expect(result).toBeUndefined();
+        });
       });
     });
   });
