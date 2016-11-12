@@ -1,29 +1,29 @@
-import WhereIterator from '../WhereIterator';
+import SelectIterator from '../SelectIterator';
 
-describe('WhereIterator', function () {
+describe('SelectIterator', function () {
 
-  describe('when condition is defined', function () {
+  describe('when callback is defined', function () {
     let array,
-        condition;
+        callback;
 
     beforeEach(function () {
       array = [1, 2];
-      condition = (item) => item > 1;
+      callback = (item) => item * 2;
     });
 
     it('should not throw an error', function () {
       expect(function () {
-        let iterator = new WhereIterator(array, condition);
+        let iterator = new SelectIterator(array, callback);
       }).not.toThrow();
     });
 
-    it('should expose the given condition as a property', function () {
-      let iterator = new WhereIterator(array, condition);
-      expect(iterator.condition).toBe(condition);
+    it('should expose the given callback as a property', function () {
+      let iterator = new SelectIterator(array, callback);
+      expect(iterator.callback).toBe(callback);
     });
 
     it('should have own iterator', function () {
-      let iterator = new WhereIterator(array, condition);
+      let iterator = new SelectIterator(array, callback);
       expect(iterator[Symbol.iterator]()).toBeDefined();
       expect(iterator[Symbol.iterator]()).not.toBe(array[Symbol.iterator]());
     });
@@ -31,32 +31,32 @@ describe('WhereIterator', function () {
 
   describe('when condition is not defined', function () {
     let array,
-        condition;
+        callback;
 
     beforeEach(function () {
       array = [1, 2];
-      condition = undefined;
+      callback = undefined;
     });
 
     it('should throw an error', function () {
       expect(function () {
-        let iterator = new WhereIterator(array, condition);
+        let iterator = new SelectIterator(array, callback);
       }).toThrow();
     });
   });
 
   describe('when condition is not a function', function () {
     let array,
-        condition;
+        callback;
 
     beforeEach(function () {
       array = [1, 2];
-      condition = 'Random string';
+      callback = 'Random string';
     });
 
     it('should throw an error', function () {
       expect(function () {
-        let iterator = new WhereIterator(array, condition);
+        let iterator = new SelectIterator(array, callback);
       }).toThrow();
     });
   });

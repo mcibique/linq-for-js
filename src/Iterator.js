@@ -60,6 +60,12 @@ export default class Iterator {
     }
   }
 
+  select(callback) {
+    // cannot use import SelectIterator from './SelectIterator' because of circular dependency
+    let SelectIterator = require('./SelectIterator').default;
+    return new SelectIterator(this, callback);
+  }
+
   toArray() {
     return Array.from(this);
   }

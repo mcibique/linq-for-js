@@ -7,7 +7,7 @@ describe('Chaining', function () {
     customers = [
       { name: 'John', age: 15 },
       { name: 'Joe', age: 19 },
-      { name: 'Anna', age: 21 }
+      { name: 'Adele', age: 21 }
     ];
   });
 
@@ -95,6 +95,84 @@ describe('Chaining', function () {
           .all(customer => customer.name.startsWith('J'));
 
         expect(all).toBe(false);
+      });
+    });
+  });
+
+  describe('select + first', function () {
+    it('should return first element', function () {
+      let name = customers
+        .select(customer => customer.name)
+        .first();
+
+      expect(name).toBe(customers[0].name);
+    });
+  });
+
+  describe('select + any', function () {
+    describe('when condition matches any customer', function () {
+      it('should return true', function () {
+        let any = customers
+          .select(customer => customer.name)
+          .any(name => name.startsWith('A'));
+
+        expect(any).toBe(true);
+      });
+    });
+
+    describe('when condition doesn\'t match any customer', function () {
+      it('should return false', function () {
+        let any = customers
+          .select(customer => customer.age)
+          .any(age => age > 65);
+
+        expect(any).toBe(false);
+      });
+    });
+  });
+
+  describe('select + all', function () {
+    describe('when condition matches all customer', function () {
+      it('should return true', function () {
+        let all = customers
+          .select(customer => customer.age)
+          .all(age => age > 12);
+
+        expect(all).toBe(true);
+      });
+    });
+
+    describe('when condition doesn\'t match all customer', function () {
+      it('should return false', function () {
+        let all = customers
+          .select(customer => customer.name)
+          .all(name => name.startsWith('J'));
+
+        expect(all).toBe(false);
+      });
+    });
+  });
+
+  describe('select + where', function () {
+    describe('when condition matches any customer', function () {
+      it('should return true', function () {
+        let result = customers
+          .where(customer => customer.age > 18)
+          .select(customer => customer.name)
+          .toArray();
+
+        expect(result).toEqual(['Joe', 'Adele']);
+      });
+    });
+
+    describe('when condition doesn\'t match any customer', function () {
+      it('should return false', function () {
+        let result = customers
+          .where(customer => customer.name.startsWith('X'))
+          .select(customer => customer.age)
+          .toArray();
+
+        expect(result.length).toBe(0);
       });
     });
   });

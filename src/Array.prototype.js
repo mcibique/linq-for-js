@@ -1,5 +1,6 @@
-import WhereIterator from './WhereIterator';
 import Iterator from './Iterator';
+import SelectIterator from './SelectIterator';
+import WhereIterator from './WhereIterator';
 
 Object.assign(Array.prototype, {
   all(condition) {
@@ -13,6 +14,9 @@ Object.assign(Array.prototype, {
   },
   first(condition) {
     return new Iterator(this).first(condition);
+  },
+  select(callback) {
+    return new SelectIterator(this, callback);
   },
   where(condition) {
     return new WhereIterator(this, condition);

@@ -143,3 +143,30 @@ let all = array.where(item => item > 3).all(item => item < 6);
 // true
 ```
 
+```
+// select + first
+let array = [1, 2, 3, 4, 5];
+let first = array.select(item => item * 2).first();
+// 2
+```
+
+```
+// select + any
+let array = [1, 2, 3, 4, 5];
+let any = array.select(item => item * 3).any(item => item > 10);
+// true
+```
+
+```
+// select + all
+let array = [1, 2, 3, 4, 5];
+let all = array.select(item => item ** 2).all(item => item < 30);
+// true
+```
+
+```
+// select + where
+let array = [1, 2, 3, 4, 5];
+let result = array.where(item => item > 2).select(item => item ** 2).toArray();
+// [9, 16, 25]
+```
