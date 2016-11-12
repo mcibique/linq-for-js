@@ -1,5 +1,4 @@
 import '../Array.prototype';
-import Iterator from '../Iterator';
 
 describe('Array.prototype.first', function () {
   describe('when array has items', function () {

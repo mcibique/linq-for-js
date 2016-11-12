@@ -88,7 +88,29 @@ or
 
 ```
 let array = [1, 2, 3, 4, 5];
-let any = array.any(item => item > 3);
+let any = array.any(item => item < 3);
+// true
+```
+
+or
+```
+let array = [1, 2, 3, 4, 5];
+let any = array.any(item => item === 6);
+// false
+```
+
+## All
+
+```
+let array = [1, 2, 3, 4, 5];
+let all = array.all(item => item < 3);
+// false
+```
+
+or
+```
+let array = [1, 2, 3, 4, 5];
+let all = array.all(item => item < 6);
 // true
 ```
 
@@ -103,14 +125,21 @@ let first = array.where(item => item > 2).first();
 ```
 // where + count
 let array = [1, 2, 3, 4, 5];
-let first = array.where(item => item > 3).count();
+let count = array.where(item => item > 3).count();
 // 2
 ```
 
 ```
 // where + any
 let array = [1, 2, 3, 4, 5];
-let first = array.where(item => item > 3).any();
+let any = array.where(item => item > 3).any();
+// true
+```
+
+```
+// where + all
+let array = [1, 2, 3, 4, 5];
+let all = array.where(item => item > 3).all(item => item < 6);
 // true
 ```
 

@@ -14,6 +14,19 @@ export default class Iterator {
     return this.arr[Symbol.iterator]();
   }
 
+  all(condition) {
+    if (!condition) {
+      throw new Error('Missing condition');
+    }
+
+    for (let item of this) {
+      if (!condition(item)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   any(condition) {
     if (condition) {
       for (let item of this) {
