@@ -1,0 +1,37 @@
+{
+  "name": "linq-for-js",
+  "version": "0.0.1",
+  "private": true,
+  "description": "LINQ to JS port using ESnext iterators and generators.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcibique/linq-for-js.git"
+  },
+  "keywords": [
+    "LINQ",
+    "javascript",
+    "generators",
+    "iterators"
+  ],
+  "author": "mcibique",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mcibique/linq-for-js/issues"
+  },
+  "homepage": "https://github.com/mcibique/linq-for-js#readme",
+  "devDependencies": {
+    "babel-core": "6.18.2",
+    "babel-jest": "17.0.0",
+    "babel-preset-latest": "6.16.0",
+    "babel-preset-stage-0": "6.16.0",
+    "jest": "17.0.0",
+    "jest-cli": "17.0.0"
+  },
+  "jest": {
+    "rootDir": "./src"
+  }
+}
