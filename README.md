@@ -60,10 +60,34 @@ let first = array.first(item => item > 3);
 // 4
 ```
 
+## Count
+
+```
+let array = [1, 2, 3, 4, 5];
+let first = array.count();
+// 5
+```
+
+or
+
+```
+let array = [1, 2, 3, 4, 5];
+let first = array.count(item => item > 3);
+// 2
+```
+
 ## Chaining
 ```
+// where + first
 let array = [1, 2, 3, 4, 5];
 let first = array.where(item => item > 2).first();
 // 3
+```
+
+```
+// where + count
+let array = [1, 2, 3, 4, 5];
+let first = array.where(item => item > 3).count();
+// 2
 ```
 

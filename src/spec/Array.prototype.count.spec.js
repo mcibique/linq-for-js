@@ -1,7 +1,7 @@
 import '../Array.prototype';
 import Iterator from '../Iterator';
 
-describe('Array.prototype.first', function () {
+describe('Array.prototype.count', function () {
   describe('when array has items', function () {
     let array,
         result;
@@ -11,16 +11,16 @@ describe('Array.prototype.first', function () {
     });
 
     describe('and has no condition', function () {
-      it('should return first item', function () {
-        result = array.first();
-        expect(result).toBe(1);
+      it('should return number of items', function () {
+        result = array.count();
+        expect(result).toBe(5);
       });
     });
 
     describe('and has condition', function () {
-      it('should return first item', function () {
-        result = array.first(item => item > 3);
-        expect(result).toBe(4);
+      it('should return number of items that match the given condition', function () {
+        result = array.count(item => item > 3);
+        expect(result).toBe(2);
       });
     });
   });
@@ -34,16 +34,16 @@ describe('Array.prototype.first', function () {
     });
 
     describe('and has no condition', function () {
-      it('should return undefined', function () {
-        result = array.first();
-        expect(result).toBeUndefined();
+      it('should return 0', function () {
+        result = array.count();
+        expect(result).toBe(0);
       });
     });
 
     describe('and has condition', function () {
       it('should return undefined', function () {
-        result = array.first(item => item > 3);
-        expect(result).toBeUndefined();
+        result = array.count(item => item > 3);
+        expect(result).toBe(0);
       });
     });
   });

@@ -14,8 +14,16 @@ export default class Iterator {
     return this.arr[Symbol.iterator]();
   }
 
-  toArray() {
-    return Array.from(this);
+  count(condition) {
+    if (condition) {
+      return this.where(condition).count();
+    } else {
+      let count = 0;
+      for (let item of this) {
+        count++;
+      }
+      return count;
+    }
   }
 
   first(condition) {
@@ -24,6 +32,10 @@ export default class Iterator {
     } else {
       return this[Symbol.iterator]().next().value;
     }
+  }
+
+  toArray() {
+    return Array.from(this);
   }
 
   where(condition) {

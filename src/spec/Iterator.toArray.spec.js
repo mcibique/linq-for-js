@@ -31,7 +31,7 @@ describe('Iterator.toArray', function () {
       result = iterator.toArray();
     });
 
-    it('should result empty array', function () {
+    it('should return empty array', function () {
       expect(result.length).toBe(array.length);
       expect(result instanceof Array).toBe(true);
     });
