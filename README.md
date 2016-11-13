@@ -1,6 +1,21 @@
 # linq-for-js
 LINQ to JS port using ESnext iterators and generators.
 
+# Performance
+1. Just like in LINQ, the iterable chain is not performing any operation until the iteration is executed, which allows you to build up the chain:
+```
+let query = customers.where(customer => customer.age > 18).select(customer => customer.id); // this only returns the iterator, no operation has been performed so far
+let filtered = query.toArray(); // or Array.from(query), or for (let id of query) { ... }
+```
+The query is being iterated in most performant way: `select()` command is executed only on customers filtered by `where()` command. If you have 100 customers and 10 are over 18, `where()` command executes 100 times, `select()` only 10.
+
+2. Lets try to get only first customer which is over 18:
+```
+let query = customers.where(customer => customer.age > 18).select(customer => customer.id) // again, this only returns the iterator, no operation has been performed so far
+let customerId = query.first(); // get me the first customer ID which matches the query;
+```
+Here, the `where()` command executes until it finds first customer with age over 18. Then the `select()` command is performed only with filtered customer and the result is returned.
+
 # Usage
 ## Where
 ```
