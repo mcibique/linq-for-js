@@ -26,12 +26,12 @@
   "homepage": "https://github.com/mcibique/linq-for-js#readme",
   "devDependencies": {
     "babel-core": "6.18.2",
-    "babel-jest": "17.0.0",
+    "babel-jest": "17.0.2",
     "babel-plugin-transform-runtime": "6.15.0",
     "babel-preset-latest": "6.16.0",
     "babel-preset-stage-0": "6.16.0",
-    "jest": "17.0.0",
-    "jest-cli": "17.0.0"
+    "jest": "17.0.2",
+    "jest-cli": "17.0.2"
   },
   "jest": {
     "rootDir": "./src"
