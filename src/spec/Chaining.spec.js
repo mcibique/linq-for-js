@@ -99,6 +99,28 @@ describe('Chaining', function () {
     });
   });
 
+  describe('where + aggregate', function () {
+    describe('when condition matches any customer', function () {
+      it('should return aggregated result', function () {
+        let aggregated = customers
+          .where(customer => customer.name.startsWith('J'))
+          .aggregate((prev, curr) => prev.name + ', ' + curr.name);
+
+        expect(aggregated).toBe('John, Joe');
+      });
+    });
+
+    describe('when condition doesn\'t match any customer', function () {
+      it('should return initialValue', function () {
+        let aggregated = customers
+          .where(customer => customer.age > 65)
+          .aggregate((prev, curr) => prev.name + ', ' + curr.name, '');
+
+        expect(aggregated).toBe('');
+      });
+    });
+  });
+
   describe('select + first', function () {
     it('should return first element', function () {
       let name = customers
@@ -106,6 +128,16 @@ describe('Chaining', function () {
         .first();
 
       expect(name).toBe(customers[0].name);
+    });
+  });
+
+  describe('select + sum', function () {
+    it('should return sum of selected elements', function () {
+      let sum = customers
+        .select(customer => customer.age)
+        .sum();
+
+      expect(sum).toBe(55);
     });
   });
 

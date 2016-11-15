@@ -14,6 +14,27 @@ export default class Iterator {
     return this.arr[Symbol.iterator]();
   }
 
+  aggregate(accumulator, initialValue) {
+    if (typeof accumulator !== 'function') {
+      throw new Error('Missing accumulator function');
+    }
+
+    let result;
+    let iterator = this[Symbol.iterator]();
+
+    if (typeof initialValue === 'undefined') {
+      result = iterator.next().value;
+    } else {
+      result = initialValue;
+    }
+
+    let current;
+    while((current = iterator.next()) && current && !current.done) {
+      result = accumulator(result, current.value);
+    }
+    return result;
+  }
+
   all(condition) {
     if (!condition) {
       throw new Error('Missing condition');
@@ -64,6 +85,10 @@ export default class Iterator {
     // cannot use import SelectIterator from './SelectIterator' because of circular dependency
     let SelectIterator = require('./SelectIterator').default;
     return new SelectIterator(this, callback);
+  }
+
+  sum() {
+    return this.aggregate((prev, curr) => prev + curr, 0);
   }
 
   toArray() {

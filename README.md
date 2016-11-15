@@ -108,6 +108,7 @@ let any = array.any(item => item < 3);
 ```
 
 or
+
 ```
 let array = [1, 2, 3, 4, 5];
 let any = array.any(item => item === 6);
@@ -123,10 +124,40 @@ let all = array.all(item => item < 3);
 ```
 
 or
+
 ```
 let array = [1, 2, 3, 4, 5];
 let all = array.all(item => item < 6);
 // true
+```
+
+## Aggregate
+
+```
+let array = [1, 2, 3, 4, 5];
+let aggregate = array.aggregate((prev, curr) => prev + curr);
+// 15
+```
+
+or
+
+```
+let customers = [
+  { name: 'John', age: 15 },
+  { name: 'Joe', age: 19 },
+  { name: 'Anna', age: 21 }
+];
+
+let aggregate = customers.aggregate((prev, curr) => prev.name + ', ' + curr.name);
+// "John, Joe, Anna"
+```
+
+## Sum
+
+```
+let array = [1, 2, 3, 4, 5];
+let count = array.sum();
+// 15
 ```
 
 ## Chaining
@@ -159,6 +190,13 @@ let all = array.where(item => item > 3).all(item => item < 6);
 ```
 
 ```
+// where + sum
+let array = [1, 2, 3, 4, 5];
+let count = array.where(item => item > 3).sum();
+// 9
+```
+
+```
 // select + first
 let array = [1, 2, 3, 4, 5];
 let first = array.select(item => item * 2).first();
@@ -180,8 +218,29 @@ let all = array.select(item => item ** 2).all(item => item < 30);
 ```
 
 ```
+// select + sum
+let array = [1, 2, 3, 4, 5];
+let sum = array.select(item => item * 2).sum();
+// 30
+```
+
+```
 // select + where
 let array = [1, 2, 3, 4, 5];
 let result = array.where(item => item > 2).select(item => item ** 2).toArray();
 // [9, 16, 25]
+```
+
+```
+// select + where + sum
+let array = [1, 2, 3, 4, 5];
+let result = array.where(item => item > 2).select(item => item ** 2).sum();
+// 50
+```
+
+```
+// select + where + aggregate
+let array = [1, 2, 3, 4, 5];
+let result = array.where(item => item > 2).select(item => item * 2).aggregate((prev, curr) => prev + curr);
+// 24
 ```
