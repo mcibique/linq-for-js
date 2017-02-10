@@ -1,5 +1,6 @@
 import Iterator from './Iterator';
 import SelectIterator from './SelectIterator';
+import TakeIterator from './TakeIterator';
 import WhereIterator from './WhereIterator';
 
 Object.assign(Array.prototype, {
@@ -23,6 +24,9 @@ Object.assign(Array.prototype, {
   },
   sum() {
     return new Iterator(this).sum();
+  },
+  take(count) {
+    return new TakeIterator(this, count);
   },
   where(condition) {
     return new WhereIterator(this, condition);

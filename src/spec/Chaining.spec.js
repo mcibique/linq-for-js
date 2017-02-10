@@ -7,7 +7,9 @@ describe('Chaining', function () {
     customers = [
       { name: 'John', age: 15 },
       { name: 'Joe', age: 19 },
-      { name: 'Adele', age: 21 }
+      { name: 'Adele', age: 21 },
+      { name: 'Ben', age: 35 },
+      { name: 'Jane', age: 24 }
     ];
   });
 
@@ -40,7 +42,7 @@ describe('Chaining', function () {
           .where(customer => customer.age > 18)
           .count();
 
-        expect(count).toBe(2);
+        expect(count).toBe(4);
       });
     });
 
@@ -104,9 +106,9 @@ describe('Chaining', function () {
       it('should return aggregated result', function () {
         let aggregated = customers
           .where(customer => customer.name.startsWith('J'))
-          .aggregate((prev, curr) => prev.name + ', ' + curr.name);
+          .aggregate((prev, curr) => (prev.name || prev) + ', ' + curr.name);
 
-        expect(aggregated).toBe('John, Joe');
+        expect(aggregated).toBe('John, Joe, Jane');
       });
     });
 
@@ -114,9 +116,35 @@ describe('Chaining', function () {
       it('should return initialValue', function () {
         let aggregated = customers
           .where(customer => customer.age > 65)
-          .aggregate((prev, curr) => prev.name + ', ' + curr.name, '');
+          .aggregate((prev, curr) => (prev.name || prev) + ', ' + curr.name, '');
 
         expect(aggregated).toBe('');
+      });
+    });
+  });
+
+  describe('where + take', function () {
+    describe('when condition matches any customer', function () {
+      it('should return first X customers that matches the condition', function () {
+        let result = customers
+          .where(customer => customer.age > 18)
+          .take(2)
+          .toArray();
+
+        expect(result.length).toBe(2);
+        expect(result[0]).toBe(customers[1]);
+        expect(result[1]).toBe(customers[2]);
+      });
+    });
+
+    describe('when condition doesn\'t match any customer', function () {
+      it('should return empty array', function () {
+        let result = customers
+          .where(customer => customer.age > 65)
+          .take(4)
+          .toArray();
+
+        expect(result.length).toBe(0);
       });
     });
   });
@@ -137,7 +165,7 @@ describe('Chaining', function () {
         .select(customer => customer.age)
         .sum();
 
-      expect(sum).toBe(55);
+      expect(sum).toBe(114);
     });
   });
 
@@ -185,11 +213,48 @@ describe('Chaining', function () {
     });
   });
 
+  describe('select + take', function () {
+    it('should return first X customer ages', function () {
+      let result = customers
+        .select(customer => customer.name)
+        .take(2)
+        .toArray();
+
+      expect(result.length).toBe(2);
+      expect(result).toEqual(['John', 'Joe']);
+    });
+  });
+
   describe('select + where', function () {
     describe('when condition matches any customer', function () {
-      it('should return true', function () {
+      it('should return names of all customers which matches the condition', function () {
         let result = customers
           .where(customer => customer.age > 18)
+          .select(customer => customer.name)
+          .toArray();
+
+        expect(result).toEqual(['Joe', 'Adele', 'Ben', 'Jane']);
+      });
+    });
+
+    describe('when condition doesn\'t match any customer', function () {
+      it('should return empty array', function () {
+        let result = customers
+          .where(customer => customer.name.startsWith('X'))
+          .select(customer => customer.age)
+          .toArray();
+
+        expect(result.length).toBe(0);
+      });
+    });
+  });
+
+  describe('select + take + where', function () {
+    describe('when condition matches any customer', function () {
+      it('should return names of first 2 customers which matches the condition', function () {
+        let result = customers
+          .where(customer => customer.age > 18)
+          .take(2)
           .select(customer => customer.name)
           .toArray();
 
@@ -198,14 +263,27 @@ describe('Chaining', function () {
     });
 
     describe('when condition doesn\'t match any customer', function () {
-      it('should return false', function () {
+      it('should return empty array', function () {
         let result = customers
           .where(customer => customer.name.startsWith('X'))
+          .take(2)
           .select(customer => customer.age)
           .toArray();
 
         expect(result.length).toBe(0);
       });
+    });
+  });
+
+  describe('take + (where x 2)', function () {
+    it('should take first three customers which matches the condition, then it should filter only them', function () {
+      let result = customers
+        .where(customer => customer.age > 18)
+        .take(3)
+        .where(customer => customer.name.startsWith('J'))
+        .toArray();
+
+      expect(result).toEqual([customers[1]]);
     });
   });
 });

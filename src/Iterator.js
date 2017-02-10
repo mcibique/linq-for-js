@@ -81,6 +81,11 @@ export default class Iterator {
     }
   }
 
+  take(count) {
+    let TakeIterator = require('./TakeIterator').default;
+    return new TakeIterator(this, count);
+  }
+
   select(callback) {
     // cannot use import SelectIterator from './SelectIterator' because of circular dependency
     let SelectIterator = require('./SelectIterator').default;

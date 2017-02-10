@@ -1,5 +1,5 @@
 # linq-for-js
-LINQ to JS port using ESnext iterators and generators.
+LINQ to JS port using ESnext iteration protocol and generators.
 
 # Performance
 Just like in LINQ, the iterable chain is not performing any operation until the iteration is executed, which allows you to build up the chain:
@@ -14,7 +14,17 @@ Lets try to get only first customer which is over 18:
 let query = customers.where(customer => customer.age > 18).select(customer => customer.id) // again, this only returns the iterator, no operation has been performed so far
 let customerId = query.first(); // get me the first customer ID which matches the query;
 ```
-Here, the `where()` command executes until it finds first customer with age over 18. Then the `select()` command is performed only with filtered customer and the result is returned.
+Here, the `where()` command executes until it finds first customer with age over 18. Then the `select()` command is performed only with filtered customer and the result is returned. Checkout other useful examples in [Chaining](#chaining)
+
+# Methods implemented
+* [Where](#where)
+* [First](#first)
+* [Count](#count)
+* [Any](#all)
+* [All](#all)
+* [Aggregate](#aggregate)
+* [Sum](#sum)
+* [Take](#take)
 
 # Usage
 ## Where
@@ -148,7 +158,7 @@ let customers = [
   { name: 'Anna', age: 21 }
 ];
 
-let aggregate = customers.aggregate((prev, curr) => prev.name + ', ' + curr.name);
+let aggregate = customers.aggregate((prev, curr) => (prev.name || prev) + ', ' + curr.name);
 // "John, Joe, Anna"
 ```
 
@@ -158,6 +168,14 @@ let aggregate = customers.aggregate((prev, curr) => prev.name + ', ' + curr.name
 let array = [1, 2, 3, 4, 5];
 let count = array.sum();
 // 15
+```
+
+## Take
+
+```
+let array = [1, 2, 3, 4, 5];
+let result = array.take(3);
+// [1, 2, 3]
 ```
 
 ## Chaining
@@ -197,6 +215,13 @@ let count = array.where(item => item > 3).sum();
 ```
 
 ```
+// where + take
+let array = [1, 2, 3, 4, 5];
+let count = array.where(item => item > 1).take(2);
+// [2, 3]
+```
+
+```
 // select + first
 let array = [1, 2, 3, 4, 5];
 let first = array.select(item => item * 2).first();
@@ -225,6 +250,13 @@ let sum = array.select(item => item * 2).sum();
 ```
 
 ```
+// select + take
+let array = [1, 2, 3, 4, 5];
+let sum = array.take(3).select(item => item * 2).toArray();
+// [2, 4, 6]
+```
+
+```
 // select + where
 let array = [1, 2, 3, 4, 5];
 let result = array.where(item => item > 2).select(item => item ** 2).toArray();
@@ -243,4 +275,11 @@ let result = array.where(item => item > 2).select(item => item ** 2).sum();
 let array = [1, 2, 3, 4, 5];
 let result = array.where(item => item > 2).select(item => item * 2).aggregate((prev, curr) => prev + curr);
 // 24
+```
+
+```
+// select + where + take
+let array = [1, 2, 3, 4, 5];
+let result = array.where(item => item > 2).take(2).select(item => item * 2).toArray();
+// [6, 8]
 ```
