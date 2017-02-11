@@ -8,8 +8,7 @@ describe('Array.prototype.where', function () {
   });
 
   describe('when condition is defined', function () {
-    let array,
-        condition;
+    let array;
 
     beforeEach(function () {
       array = [1, 2, 3, 4, 5];

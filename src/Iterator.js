@@ -82,8 +82,15 @@ export default class Iterator {
   }
 
   take(count) {
+    // cannot use import TakeIterator from './TakeIterator' because of circular dependency
     let TakeIterator = require('./TakeIterator').default;
     return new TakeIterator(this, count);
+  }
+
+  takeWhile(condition) {
+    // cannot use import TakeWhileIterator from './TakeWhileIterator' because of circular dependency
+    let TakeWhileIterator = require('./TakeWhileIterator').default;
+    return new TakeWhileIterator(this, condition);
   }
 
   select(callback) {

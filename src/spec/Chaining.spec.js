@@ -149,6 +149,31 @@ describe('Chaining', function () {
     });
   });
 
+  describe('where + takeWhile', function () {
+    describe('when condition matches any customer', function () {
+      it('should return first X customers that matches the condition', function () {
+        let result = customers
+          .where(customer => customer.name.startsWith('J'))
+          .takeWhile(customer => customer.age < 18)
+          .toArray();
+
+        expect(result.length).toBe(1);
+        expect(result[0]).toBe(customers[0]);
+      });
+    });
+
+    describe('when condition doesn\'t match any customer', function () {
+      it('should return empty array', function () {
+        let result = customers
+          .where(customer => customer.name.startsWith('X'))
+          .takeWhile(customer => customer.age < 18)
+          .toArray();
+
+        expect(result.length).toBe(0);
+      });
+    });
+  });
+
   describe('select + first', function () {
     it('should return first element', function () {
       let name = customers
@@ -214,10 +239,22 @@ describe('Chaining', function () {
   });
 
   describe('select + take', function () {
-    it('should return first X customer ages', function () {
+    it('should return first X customer names', function () {
       let result = customers
         .select(customer => customer.name)
         .take(2)
+        .toArray();
+
+      expect(result.length).toBe(2);
+      expect(result).toEqual(['John', 'Joe']);
+    });
+  });
+
+  describe('select + takeWhile', function () {
+    it('should return first X customer ages which match the given condition', function () {
+      let result = customers
+        .select(customer => customer.name)
+        .takeWhile(name => name.startsWith('J'))
         .toArray();
 
       expect(result.length).toBe(2);
@@ -284,6 +321,116 @@ describe('Chaining', function () {
         .toArray();
 
       expect(result).toEqual([customers[1]]);
+    });
+  });
+
+  describe('takeWhile + first', function () {
+    describe('when condition matches first X customers', function () {
+      it('should return first element', function () {
+        let customer = customers
+          .takeWhile(customer => customer.age < 65)
+          .first();
+
+        expect(customer).toBe(customers[0]);
+      });
+    });
+
+    describe('when condition doesn\'t match first customer', function () {
+      it('should return undefined', function () {
+        let customer = customers
+          .takeWhile(customer => customer.age > 18)
+          .first();
+
+        expect(customer).toBeUndefined();
+      });
+    });
+  });
+
+  describe('takeWhile + count', function () {
+    describe('when condition matches first X customers', function () {
+      it('should return number of matching customers', function () {
+        let count = customers
+          .takeWhile(customer => customer.name.startsWith('J'))
+          .count();
+
+        expect(count).toBe(2);
+      });
+    });
+
+    describe('when condition doesn\'t match first customer', function () {
+      it('should return 0', function () {
+        let count = customers
+          .takeWhile(customer => customer.age > 18)
+          .count();
+
+        expect(count).toBe(0);
+      });
+    });
+  });
+
+  describe('takeWhile + any', function () {
+    describe('when condition matches first X customers', function () {
+      it('should return true', function () {
+        let any = customers
+          .takeWhile(customer => customer.age < 65)
+          .any();
+
+        expect(any).toBe(true);
+      });
+    });
+
+    describe('when condition doesn\'t match first customer', function () {
+      it('should return false', function () {
+        let any = customers
+          .takeWhile(customer => customer.age > 65)
+          .any();
+
+        expect(any).toBe(false);
+      });
+    });
+  });
+
+  describe('takeWhile + all', function () {
+    describe('when condition matches first X customers', function () {
+      it('should return true', function () {
+        let all = customers
+          .takeWhile(customer => customer.name.startsWith('J'))
+          .all(customer => customer.age > 12);
+
+        expect(all).toBe(true);
+      });
+    });
+
+    describe('when condition doesn\'t match all customers returned by takeWhile call', function () {
+      it('should return false', function () {
+        let all = customers
+          .takeWhile(customer => customer.name.startsWith('J'))
+          .all(customer => customer.age > 18);
+
+        expect(all).toBe(false);
+      });
+    });
+  });
+
+  describe('takeWhile + aggregate', function () {
+    describe('when condition matches first X customers', function () {
+      it('should return aggregated result', function () {
+        let aggregated = customers
+          .takeWhile(customer => customer.name.startsWith('J'))
+          .aggregate((prev, curr) => (prev.name || prev) + ', ' + curr.name);
+
+        expect(aggregated).toBe('John, Joe');
+      });
+    });
+
+    describe('when condition doesn\'t match first customer', function () {
+      it('should return initialValue', function () {
+        let aggregated = customers
+          .takeWhile(customer => customer.age > 65)
+          .aggregate((prev, curr) => (prev.name || prev) + ', ' + curr.name, '');
+
+        expect(aggregated).toBe('');
+      });
     });
   });
 });

@@ -1,6 +1,7 @@
 import Iterator from './Iterator';
 import SelectIterator from './SelectIterator';
 import TakeIterator from './TakeIterator';
+import TakeWhileIterator from './TakeWhileIterator';
 import WhereIterator from './WhereIterator';
 
 Object.assign(Array.prototype, {
@@ -27,6 +28,9 @@ Object.assign(Array.prototype, {
   },
   take(count) {
     return new TakeIterator(this, count);
+  },
+  takeWhile(condition) {
+    return new TakeWhileIterator(this, condition);
   },
   where(condition) {
     return new WhereIterator(this, condition);

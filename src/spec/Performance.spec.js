@@ -329,4 +329,51 @@ describe('Performance', function () {
       });
     });
   });
+
+  describe('takeWhile + first', function () {
+    let takeWhileCallback;
+
+    beforeEach(function () {
+      takeWhileCallback = jest.fn(customer => customer.age < 100);
+    });
+
+    describe('when iteration is performed', function () {
+      let result;
+
+      beforeEach(function () {
+        result = customers
+          .takeWhile(takeWhileCallback)
+          .first();
+      });
+
+      it('should iterate takeWhileCallback only once', function () {
+        expect(takeWhileCallback).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
+
+  describe('takeWhile + take', function () {
+    let takeWhileCallback,
+        takeCount;
+
+    beforeEach(function () {
+      takeWhileCallback = jest.fn(customer => customer.age < 100);
+      takeCount = 2;
+    });
+
+    describe('when iteration is performed', function () {
+      let result;
+
+      beforeEach(function () {
+        result = customers
+          .takeWhile(takeWhileCallback)
+          .take(takeCount)
+          .toArray();
+      });
+
+      it('should iterate takeWhileCallback twice', function () {
+        expect(takeWhileCallback).toHaveBeenCalledTimes(2);
+      });
+    });
+  });
 });
