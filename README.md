@@ -25,6 +25,7 @@ Here, the `where()` command executes until it finds first customer with age over
 * [Aggregate](#aggregate)
 * [Sum](#sum)
 * [Take](#take)
+* [TakeWhile](#takeWhile)
 
 # Usage
 ## Where
@@ -178,6 +179,20 @@ let result = array.take(3);
 // [1, 2, 3]
 ```
 
+## TakeWhile
+
+```
+let array = [1, 2, 3, 4, 5];
+let result = array.takeWhile(i => i < 3);
+// [1, 2]
+```
+
+```
+let array = [1, 2, 3, 4, 5];
+let result = array.takeWhile(i => i < 0);
+// []
+```
+
 ## Chaining
 ```
 // where + first
@@ -253,6 +268,13 @@ let sum = array.select(item => item * 2).sum();
 // select + take
 let array = [1, 2, 3, 4, 5];
 let sum = array.take(3).select(item => item * 2).toArray();
+// [2, 4, 6]
+```
+
+```
+// select + takeWhile
+let array = [1, 2, 3, 4, 5];
+let sum = array.select(item => item * 2).takeWhile(i => i < 7).toArray();
 // [2, 4, 6]
 ```
 
