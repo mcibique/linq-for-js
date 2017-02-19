@@ -1,4 +1,20 @@
 {
-  "presets": ["latest", "stage-0"],
-  "plugins": ["transform-runtime"]
+
+
+  "env": {
+    "test": {
+      "presets": ["latest", "stage-0"],
+      "plugins": ["transform-runtime"]
+    },
+    "rollup": {
+      "presets": [
+        ["latest", {
+          "es2015": {
+            "modules": false
+          }
+        }], "stage-0"
+      ],
+      "plugins": ["external-helpers"]
+    }
+  }
 }
