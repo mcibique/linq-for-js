@@ -1,7 +1,6 @@
 {
   "name": "linq-for-js",
   "version": "1.0.0",
-  "private": true,
   "description": "LINQ to JS port using ESnext iterators and generators.",
   "main": "index.js",
   "scripts": {
