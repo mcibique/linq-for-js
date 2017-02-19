@@ -1,4 +1,5 @@
-# linq-for-js
+# linq-for-js [![npm version](https://badge.fury.io/js/linq-for-js.svg)](https://www.npmjs.com/package/linq-for-js)
+
 [LINQ](https://msdn.microsoft.com/en-us/library/bb308959.aspx) to JS port using ESnext iteration protocol and generators.
 
 # Performance
