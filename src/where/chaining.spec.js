@@ -1,16 +1,11 @@
 import '../Array.prototype.all';
+import customersData from '../../test/customers';
 
 describe('Array.prototype.where - chaining', function () {
   let customers;
 
   beforeEach(function () {
-    customers = [
-      { name: 'John', age: 15 },
-      { name: 'Joe', age: 19 },
-      { name: 'Adele', age: 21 },
-      { name: 'Ben', age: 35 },
-      { name: 'Jane', age: 24 }
-    ];
+    customers = [ ...customersData ];
   });
 
   describe('where + first', function () {
@@ -198,7 +193,31 @@ describe('Array.prototype.where - chaining', function () {
     });
   });
 
-  describe('where +take + select', function () {
+  describe('where + selectMany', function () {
+    describe('when condition matches any customer', function () {
+      it('should return orders of all customers which matches the condition', function () {
+        let result = customers
+          .where(customer => customer.age > 21)
+          .selectMany(customer => customer.orders)
+          .toArray();
+
+        expect(result).toEqual([...customers[3].orders, ...customers[4].orders]);
+      });
+    });
+
+    describe('when condition doesn\'t match any customer', function () {
+      it('should return empty array', function () {
+        let result = customers
+          .where(customer => customer.name.startsWith('X'))
+          .selectMany(customer => customer.orders)
+          .toArray();
+
+        expect(result.length).toBe(0);
+      });
+    });
+  });
+
+  describe('where + take + select', function () {
     describe('when condition matches any customer', function () {
       it('should return names of first 2 customers which matches the condition', function () {
         let result = customers

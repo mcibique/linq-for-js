@@ -26,6 +26,7 @@ Here, the `where()` command executes until it finds first customer with age over
 * [Sum](#sum)
 * [Take](#take)
 * [TakeWhile](#takeWhile)
+* [Select](#select)
 
 # Usage
 ## Where
@@ -193,6 +194,23 @@ let result = array.takeWhile(i => i < 0);
 // []
 ```
 
+## Select
+```js
+let array = [1, 2, 3, 4, 5];
+let result = array.select(i => i ** 2).toArray();
+// [1, 4, 9, 16, 25]
+```
+
+## SelectMany
+```js
+let books = [
+  { title: 'Title 1', tags: ['novel', 'sci-fi'] },
+  { title: 'Title 2', tags: ['drama', 'history'] }
+];
+let result = array.selectMany(books => books.tags).toArray();
+// ['novel', 'sci-fi', 'drama', 'history']
+```
+
 ## Chaining
 
 ```js
@@ -305,4 +323,16 @@ let result = array.where(item => item > 2).select(item => item * 2).aggregate((p
 let array = [1, 2, 3, 4, 5];
 let result = array.where(item => item > 2).take(2).select(item => item * 2).toArray();
 // [6, 8]
+```
+
+```js
+// selectMany + where
+let customers = [
+  { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] },
+  { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] },
+  { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] }
+
+]
+let result = customers.selectMany(customer => customer.orders).where(order => order.total > 100).toArray();
+// [ { id: 5, total: 200 }, { id: 7, total: 150 }, { id: 11, total: 250 } ]
 ```

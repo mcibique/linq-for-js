@@ -1,16 +1,11 @@
 import '../Array.prototype.all';
+import customersData from '../../test/customers';
 
 describe('Array.prototype.first - performance', function () {
   let customers;
 
   beforeEach(function () {
-    customers = [
-      { name: 'John', age: 15 },
-      { name: 'Joe', age: 19 },
-      { name: 'Adele', age: 21 },
-      { name: 'Ben', age: 35 },
-      { name: 'Jane', age: 24 }
-    ];
+    customers = [ ...customersData ];
   });
 
   describe('first', function () {
@@ -94,6 +89,28 @@ describe('Array.prototype.first - performance', function () {
 
       it('should iterate takeWhileCallback only once', function () {
         expect(takeWhileCallback).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
+
+  describe('selectMany + first', function () {
+    let selectManyCallback;
+
+    beforeEach(function () {
+      selectManyCallback = jest.fn(customer => customer.orders);
+    });
+
+    describe('when iteration is performed', function () {
+      let result;
+
+      beforeEach(function () {
+        result = customers
+          .selectMany(selectManyCallback)
+          .first();
+      });
+
+      it('should iterate selectManyCallback only once', function () {
+        expect(selectManyCallback).toHaveBeenCalledTimes(1);
       });
     });
   });

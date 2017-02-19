@@ -1,16 +1,11 @@
 import '../Array.prototype.all';
+import customersData from '../../test/customers';
 
 describe('Array.prototype.takeWhile - chaining', function () {
   let customers;
 
   beforeEach(function () {
-    customers = [
-      { name: 'John', age: 15 },
-      { name: 'Joe', age: 19 },
-      { name: 'Adele', age: 21 },
-      { name: 'Ben', age: 35 },
-      { name: 'Jane', age: 24 }
-    ];
+    customers = [ ...customersData ];
   });
 
   describe('takeWhile + first', function () {

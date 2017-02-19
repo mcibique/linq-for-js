@@ -1,16 +1,11 @@
 import '../Array.prototype.all';
+import customersData from '../../test/customers';
 
 describe('Array.prototype.take - performance', function () {
   let customers;
 
   beforeEach(function () {
-    customers = [
-      { name: 'John', age: 15 },
-      { name: 'Joe', age: 19 },
-      { name: 'Adele', age: 21 },
-      { name: 'Ben', age: 35 },
-      { name: 'Jane', age: 24 }
-    ];
+    customers = [ ...customersData ];
   });
 
   describe('where + take + select', function () {
@@ -98,6 +93,31 @@ describe('Array.prototype.take - performance', function () {
 
       it('should iterate takeWhileCallback twice', function () {
         expect(takeWhileCallback).toHaveBeenCalledTimes(2);
+      });
+    });
+  });
+
+  describe('selectMany + take', function () {
+    let selectManyCallback,
+        takeCount;
+
+    beforeEach(function () {
+      selectManyCallback = jest.fn(customer => customer.orders);
+      takeCount = 5;
+    });
+
+    describe('when iteration is performed', function () {
+      let result;
+
+      beforeEach(function () {
+        result = customers
+          .selectMany(selectManyCallback)
+          .take(takeCount)
+          .toArray();
+      });
+
+      it('should iterate takeWhileCallback four times', function () {
+        expect(selectManyCallback).toHaveBeenCalledTimes(4);
       });
     });
   });
