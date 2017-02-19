@@ -1,5 +1,5 @@
 # linq-for-js
-LINQ to JS port using ESnext iteration protocol and generators.
+[LINQ](https://msdn.microsoft.com/en-us/library/bb308959.aspx) to JS port using ESnext iteration protocol and generators.
 
 # Performance
 Just like in LINQ, the iterable chain is not performing any operation until the iteration is executed, which allows you to build up the chain:
@@ -14,7 +14,9 @@ Lets try to get only first customer which is over 18:
 let query = customers.where(customer => customer.age > 18).select(customer => customer.id) // again, this only returns the iterator, no operation has been performed so far
 let customerId = query.first(); // get me the first customer ID which matches the query;
 ```
-Here, the `where()` command executes until it finds first customer with age over 18. Then the `select()` command is performed only with filtered customer and the result is returned. Checkout other useful examples in [Chaining](#chaining)
+Here, the `where()` command executes until it finds first customer with age over 18. Then the `select()` command is performed only with filtered customer and the result is returned.
+
+LINQ is not only about `select()` and `where()`, it contains a set of chainable [methods](#methods-implemented) which allows you to build up a query and then execute it. Checkout how they fits together in [Chaining](#chaining) examples.
 
 # Methods implemented
 * [Where](#where)
@@ -335,5 +337,17 @@ let customers = [
 
 ]
 let result = customers.selectMany(customer => customer.orders).where(order => order.total > 100).toArray();
-// [ { id: 5, total: 200 }, { id: 7, total: 150 }, { id: 11, total: 250 } ]
+// [ { id: 5, total: 200, ... }, { id: 7, total: 150, ... }, { id: 11, total: 250, ... } ]
+```
+
+```js
+// selectMany + count
+let customers = [
+  { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] },
+  { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] },
+  { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] }
+
+]
+let result = customers.selectMany(customer => customer.orders).count(order => order.total > 100);
+// 3
 ```
