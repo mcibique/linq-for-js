@@ -27,6 +27,7 @@ Here, the `where()` command executes until it finds first customer with age over
 * [Take](#take)
 * [TakeWhile](#takeWhile)
 * [Select](#select)
+* [SelectMany](#selectMany)
 
 # Usage
 ## Where
