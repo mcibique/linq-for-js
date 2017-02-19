@@ -1,15 +1,15 @@
-import SkipIterator from './TakeIterator';
+import SkipIterator from './SkipIterator';
 
-describe('TakeIterator.iterator', function () {
+describe('SkipIterator.iterator', function () {
   describe('when items length is bigger than count', function () {
     let array = [1, 2, 3, 4, 5],
         count = 2;
 
-    it('should return only first X items', function () {
+    it('should skip first X items', function () {
       let iterator = new SkipIterator(array, count);
       let result = Array.from(iterator);
-      expect(result.length).toBe(count);
-      expect(result).toEqual([1, 2]);
+      expect(result.length).toBe(array.length - count);
+      expect(result).toEqual([3, 4, 5]);
     });
   });
 
@@ -17,10 +17,10 @@ describe('TakeIterator.iterator', function () {
     let array = [1, 2, 3, 4, 5],
         count = array.length;
 
-    it('should return all items', function () {
+    it('should return an empty array', function () {
       let iterator = new SkipIterator(array, count);
       let result = Array.from(iterator);
-      expect(result).toEqual(array);
+      expect(result).toEqual([]);
     });
   });
 
@@ -28,10 +28,10 @@ describe('TakeIterator.iterator', function () {
     let array = [1, 2, 3, 4, 5],
         count = array.length + 1;
 
-    it('should return only all items', function () {
+    it('should return an empty array', function () {
       let iterator = new SkipIterator(array, count);
       let result = Array.from(iterator);
-      expect(result).toEqual(array);
+      expect(result).toEqual([]);
     });
   });
 });

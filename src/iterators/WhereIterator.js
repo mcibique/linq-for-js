@@ -1,6 +1,6 @@
 import Iterator from './Iterator';
 
-export default class WhereIterator extends Iterator {
+export default class SkipIterator extends Iterator {
   constructor(arr, condition) {
     super(arr);
 

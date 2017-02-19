@@ -1,6 +1,6 @@
-import WhereIterator from './WhereIterator';
+import SkipIterator from './WhereIterator';
 
-export default class TakeWhileIterator extends WhereIterator {
+export default class TakeWhileIterator extends SkipIterator {
   constructor(arr, condition) {
     super(arr, condition);
   }

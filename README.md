@@ -30,6 +30,7 @@ LINQ is not only about `select()` and `where()`, it contains a set of chainable 
 * [TakeWhile](#takeWhile)
 * [Select](#select)
 * [SelectMany](#selectMany)
+* [Skip](#skip)
 
 # Usage
 ## Where
@@ -214,6 +215,13 @@ let result = array.selectMany(books => books.tags).toArray();
 // ['novel', 'sci-fi', 'drama', 'history']
 ```
 
+## Skip
+```js
+let array = [1, 2, 3, 4, 5];
+let result = array.skip(3).toArray();
+// [4, 5]
+```
+
 ## Chaining
 
 ```js
@@ -298,6 +306,13 @@ let sum = array.take(3).select(item => item * 2).toArray();
 let array = [1, 2, 3, 4, 5];
 let sum = array.select(item => item * 2).takeWhile(i => i < 7).toArray();
 // [2, 4, 6]
+```
+
+```js
+// select + skip
+let array = [1, 2, 3, 4, 5];
+let result = array.skip(2).select(item => item ** 2).toArray();
+// [9, 16, 25]
 ```
 
 ```js

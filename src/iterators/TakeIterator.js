@@ -1,6 +1,6 @@
 import Iterator from './Iterator';
 
-export default class TakeIterator extends Iterator {
+export default class SkipIterator extends Iterator {
   constructor(arr, count) {
     super(arr);
 
