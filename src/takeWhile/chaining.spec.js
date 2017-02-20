@@ -96,6 +96,28 @@ describe('Array.prototype.takeWhile - chaining', function () {
     });
   });
 
+  describe('takeWhile + contains', function () {
+    describe('when condition matches first X customers', function () {
+      it('should return true', function () {
+        let contains = customers
+          .takeWhile(customer => customer.name.startsWith('J'))
+          .contains(customers[1]);
+
+        expect(contains).toBe(true);
+      });
+    });
+
+    describe('when condition doesn\'t match all customers returned by takeWhile call', function () {
+      it('should return false', function () {
+        let contains = customers
+          .takeWhile(customer => customer.name.startsWith('J'))
+          .contains(customers[2]);
+
+        expect(contains).toBe(false);
+      });
+    });
+  });
+
   describe('takeWhile + aggregate', function () {
     describe('when condition matches first X customers', function () {
       it('should return aggregated result', function () {

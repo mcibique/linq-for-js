@@ -1,5 +1,6 @@
 import '../Array.prototype.all';
 import customersData from '../../test/customers';
+import orders from '../../test/orders';
 
 describe('Array.prototype.selectMany - chaining', function () {
   let customers;
@@ -24,7 +25,19 @@ describe('Array.prototype.selectMany - chaining', function () {
         .selectMany(customer => customer.orders)
         .count();
 
-      expect(count).toBe(8);
+      expect(count).toBe(orders.length);
+    });
+  });
+
+  describe('selectMany + contains', function () {
+    it('should check whether parameter is contained in all orders', function () {
+      for (let order of orders) {
+        let contains = customers
+          .selectMany(customer => customer.orders)
+          .contains(order);
+
+        expect(contains).toBe(true);
+      }
     });
   });
 
@@ -79,7 +92,6 @@ describe('Array.prototype.selectMany - chaining', function () {
         .take(3)
         .toArray();
 
-      expect(result.length).toBe(3);
       expect(result).toEqual([
         customers[0].orders[0],
         customers[0].orders[1],
@@ -95,7 +107,6 @@ describe('Array.prototype.selectMany - chaining', function () {
         .takeWhile(order => order.items.length < 4)
         .toArray();
 
-      expect(result.length).toBe(6);
       expect(result).toEqual([
         customers[0].orders[0],
         customers[0].orders[1],
@@ -125,7 +136,6 @@ describe('Array.prototype.selectMany - chaining', function () {
         .where(order => order.items.length < 3)
         .toArray();
 
-      expect(orders.length).toBe(3);
       expect(orders).toEqual([
         customers[0].orders[1],
         customers[1].orders[0],
@@ -141,7 +151,6 @@ describe('Array.prototype.selectMany - chaining', function () {
         .select(order => order.id)
         .toArray();
 
-      expect(orders.length).toBe(8);
       expect(orders).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
     });
   });

@@ -96,6 +96,28 @@ describe('Array.prototype.where - chaining', function () {
     });
   });
 
+  describe('where + contains', function () {
+    describe('when condition matches any customer', function () {
+      it('should return true', function () {
+        let any = customers
+          .where(customer => customer.age > 18)
+          .contains(customers[1]);
+
+        expect(any).toBe(true);
+      });
+    });
+
+    describe('when condition doesn\'t match any customer', function () {
+      it('should return false', function () {
+        let any = customers
+          .where(customer => customer.age > 65)
+          .contains(customers[1]);
+
+        expect(any).toBe(false);
+      });
+    });
+  });
+
   describe('where + aggregate', function () {
     describe('when condition matches any customer', function () {
       it('should return aggregated result', function () {

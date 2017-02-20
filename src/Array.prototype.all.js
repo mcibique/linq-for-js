@@ -1,6 +1,7 @@
 import './aggregate';
 import './all';
 import './any';
+import './contains';
 import './count';
 import './first';
 import './max';

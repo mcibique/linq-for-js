@@ -1,5 +1,6 @@
 import '../Array.prototype.all';
 import customersData from '../../test/customers';
+import orders from '../../test/orders';
 
 describe('Array.prototype.selectMany - performance', function () {
   let customers;
@@ -10,17 +11,11 @@ describe('Array.prototype.selectMany - performance', function () {
 
   describe('selectMany iterator', function () {
     let selectManyCallback,
-        result,
-        allOrders;
+        result;
 
     beforeEach(function () {
       selectManyCallback = jest.fn((customer) => customer.orders);
       result = customers.selectMany(selectManyCallback);
-      allOrders = [];
-
-      for (let customer of customers) {
-        allOrders = allOrders.concat(customer.orders);
-      }
     });
 
     it('should not execute selectMany callback before first iteration', function () {
@@ -31,7 +26,7 @@ describe('Array.prototype.selectMany - performance', function () {
       describe('via Array.from()', function () {
         it('should execute callbacks over each customer', function () {
           let selected = Array.from(result);
-          expect(selected).toEqual(allOrders);
+          expect(selected).toEqual(orders);
           expect(selectManyCallback).toHaveBeenCalledTimes(customers.length);
         });
       });
@@ -39,7 +34,7 @@ describe('Array.prototype.selectMany - performance', function () {
       describe('via toArray()', function () {
         it('should execute callbacks over each customer', function () {
           let selected = result.toArray();
-          expect(selected).toEqual(allOrders);
+          expect(selected).toEqual(orders);
           expect(selectManyCallback).toHaveBeenCalledTimes(customers.length);
         });
       });
@@ -47,7 +42,7 @@ describe('Array.prototype.selectMany - performance', function () {
       describe('via spread operator', function () {
         it('should execute callbacks over each customer', function () {
           let selected = [...result];
-          expect(selected).toEqual(allOrders);
+          expect(selected).toEqual(orders);
           expect(selectManyCallback).toHaveBeenCalledTimes(customers.length);
         });
       });

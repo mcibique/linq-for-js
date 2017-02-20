@@ -34,6 +34,7 @@ LINQ is not only about `select()` and `where()`, it contains a set of chainable 
 * [Skip](#skip)
 * [Max](#max)
 * [Min](#min)
+* [Contains](#contains)
 
 # Usage
 ## Where
@@ -239,6 +240,13 @@ let result = array.min();
 // 1
 ```
 
+## Contains
+```js
+let array = [1, 2, 3, 4, 5];
+let result = array.contains(3);
+// true
+```
+
 ## Chaining
 
 ```js
@@ -266,6 +274,13 @@ let any = array.where(item => item > 3).any();
 // where + all
 let array = [1, 2, 3, 4, 5];
 let all = array.where(item => item > 3).all(item => item < 6);
+// true
+```
+
+```js
+// where + any
+let array = [1, 2, 3, 4, 5];
+let any = array.where(item => item > 2).contains(4);
 // true
 ```
 
@@ -315,6 +330,13 @@ let any = array.select(item => item * 3).any(item => item > 10);
 // select + all
 let array = [1, 2, 3, 4, 5];
 let all = array.select(item => item ** 2).all(item => item < 30);
+// true
+```
+
+```js
+// select + any
+let array = [1, 2, 3, 4, 5];
+let any = array.select(item => item * 3).contains(12);
 // true
 ```
 
@@ -386,6 +408,13 @@ let result = array.where(item => item > 2).take(2).select(item => item * 2).min(
 let array = [1, 2, 3, 4, 5];
 let result = array.where(item => item > 2).take(2).select(item => item * 2).max();
 // 8
+```
+
+```js
+// skip + take + contains
+let array = [1, 2, 3, 4, 5];
+let result = array.skip(2).take(2).contains(4);
+// true
 ```
 
 ```js
