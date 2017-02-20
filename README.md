@@ -423,8 +423,8 @@ let customers = [
   { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] },
   { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] },
   { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] }
+];
 
-]
 let result = customers.selectMany(customer => customer.orders).where(order => order.total > 100).toArray();
 // [ { id: 5, total: 200, ... }, { id: 7, total: 150, ... }, { id: 11, total: 250, ... } ]
 ```
@@ -435,8 +435,8 @@ let customers = [
   { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] },
   { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] },
   { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] }
+];
 
-]
 let result = customers.selectMany(customer => customer.orders).count(order => order.total > 100);
 // 3
 ```
@@ -447,8 +447,8 @@ let customers = [
   { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] },
   { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] },
   { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] }
+];
 
-]
 let min = customers.selectMany(customer => customer.orders).select(order => order.total).min();
 // 150
 ```
