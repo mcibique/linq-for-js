@@ -32,6 +32,8 @@ LINQ is not only about `select()` and `where()`, it contains a set of chainable 
 * [Select](#select)
 * [SelectMany](#selectMany)
 * [Skip](#skip)
+* [Max](#max)
+* [Min](#min)
 
 # Usage
 ## Where
@@ -223,6 +225,20 @@ let result = array.skip(3).toArray();
 // [4, 5]
 ```
 
+## Max
+```js
+let array = [1, 3, 2, 5, 4];
+let result = array.max();
+// 5
+```
+
+## Min
+```js
+let array = [5, 2, 3, 1, 4];
+let result = array.min();
+// 1
+```
+
 ## Chaining
 
 ```js
@@ -258,6 +274,20 @@ let all = array.where(item => item > 3).all(item => item < 6);
 let array = [1, 2, 3, 4, 5];
 let count = array.where(item => item > 3).sum();
 // 9
+```
+
+```js
+// where + max
+let array = [1, 2, 3, 4, 5];
+let max = array.where(item => item < 4).max();
+// 3
+```
+
+```js
+// where + min
+let array = [1, 2, 3, 4, 5];
+let max = array.where(item => item > 2).min();
+// 2
 ```
 
 ```js
@@ -345,6 +375,20 @@ let result = array.where(item => item > 2).take(2).select(item => item * 2).toAr
 ```
 
 ```js
+// select + where + take + min
+let array = [1, 2, 3, 4, 5];
+let result = array.where(item => item > 2).take(2).select(item => item * 2).min();
+// 6
+```
+
+```js
+// select + where + take + max
+let array = [1, 2, 3, 4, 5];
+let result = array.where(item => item > 2).take(2).select(item => item * 2).max();
+// 8
+```
+
+```js
 // selectMany + where
 let customers = [
   { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] },
@@ -367,3 +411,16 @@ let customers = [
 let result = customers.selectMany(customer => customer.orders).count(order => order.total > 100);
 // 3
 ```
+
+```js
+// selectMany + select + min
+let customers = [
+  { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] },
+  { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] },
+  { ..., orders: [ { id, total, ... }, { id, total, ... }, ... ] }
+
+]
+let min = customers.selectMany(customer => customer.orders).select(order => order.total).min();
+// 150
+```
+

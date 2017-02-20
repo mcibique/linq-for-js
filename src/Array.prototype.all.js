@@ -3,6 +3,8 @@ import './all';
 import './any';
 import './count';
 import './first';
+import './max';
+import './min';
 import './select';
 import './selectMany';
 import './skip';

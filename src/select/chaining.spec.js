@@ -28,6 +28,26 @@ describe('Array.prototype.select - chaining', function () {
     });
   });
 
+  describe('select + min', function () {
+    it('should return the minimum age', function () {
+      let min = customers
+        .select(customer => customer.age)
+        .min();
+
+      expect(min).toBe(15);
+    });
+  });
+
+  describe('select + max', function () {
+    it('should return the maximum age', function () {
+      let max = customers
+        .select(customer => customer.age)
+        .max();
+
+      expect(max).toBe(35);
+    });
+  });
+
   describe('select + any', function () {
     describe('when condition matches any customer', function () {
       it('should return true', function () {
