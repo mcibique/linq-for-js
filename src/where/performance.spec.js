@@ -1,16 +1,11 @@
 import '../Array.prototype.all';
+import customersData from '../../test/customers';
 
 describe('Performance', function () {
   let customers;
 
   beforeEach(function () {
-    customers = [
-      { name: 'John', age: 15 },
-      { name: 'Joe', age: 19 },
-      { name: 'Adele', age: 21 },
-      { name: 'Ben', age: 35 },
-      { name: 'Jane', age: 24 }
-    ];
+    customers = [ ...customersData ];
   });
 
   describe('where iterator', function () {
@@ -31,7 +26,7 @@ describe('Performance', function () {
         it('should execute conditions over each customer', function () {
           let filtered = Array.from(result);
           expect(filtered.length).toBe(4);
-          expect(whereCondition).toHaveBeenCalledTimes(5);
+          expect(whereCondition).toHaveBeenCalledTimes(customers.length);
         });
       });
 
@@ -39,7 +34,7 @@ describe('Performance', function () {
         it('should execute callbacks over each customer', function () {
           let filtered = [...result];
           expect(filtered.length).toBe(4);
-          expect(whereCondition).toHaveBeenCalledTimes(5);
+          expect(whereCondition).toHaveBeenCalledTimes(customers.length);
         });
       });
 
@@ -47,7 +42,7 @@ describe('Performance', function () {
         it('should execute callbacks over each customer', function () {
           let filtered = result.toArray();
           expect(filtered.length).toBe(4);
-          expect(whereCondition).toHaveBeenCalledTimes(5);
+          expect(whereCondition).toHaveBeenCalledTimes(customers.length);
         });
       });
 
@@ -55,7 +50,7 @@ describe('Performance', function () {
         it('should execute conditions over each customer', function () {
           let count = result.count();
           expect(count).toBe(4);
-          expect(whereCondition).toHaveBeenCalledTimes(5);
+          expect(whereCondition).toHaveBeenCalledTimes(customers.length);
         });
       });
 
@@ -63,7 +58,15 @@ describe('Performance', function () {
         it('should execute conditions over each customer', function () {
           let aggregated = result.aggregate((prev, curr) => (prev.name || prev) + ' | ' + curr.name);
           expect(aggregated).toBe('Joe | Adele | Ben | Jane');
-          expect(whereCondition).toHaveBeenCalledTimes(5);
+          expect(whereCondition).toHaveBeenCalledTimes(customers.length);
+        });
+      });
+
+      describe('via toMap()', function () {
+        it('should execute callbacks over each customer', function () {
+          let map = result.toMap(customer => customer.id, customer => customer.orders);
+          expect(map.size).toBe(4);
+          expect(whereCondition).toHaveBeenCalledTimes(customers.length);
         });
       });
     });

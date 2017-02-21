@@ -46,6 +46,14 @@ describe('Array.prototype.selectMany - performance', function () {
           expect(selectManyCallback).toHaveBeenCalledTimes(customers.length);
         });
       });
+
+      describe('via toMap()', function () {
+        it('should execute callbacks over each customer', function () {
+          let map = result.toMap(order => order.id, order => order.items);
+          expect(map.size).toBe(orders.length);
+          expect(selectManyCallback).toHaveBeenCalledTimes(customers.length);
+        });
+      });
     });
   });
 

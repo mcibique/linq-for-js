@@ -14,7 +14,7 @@ describe('Iterator.toArray', function () {
 
     it('should iterate over all items in the array', function () {
       expect(result.length).toBe(array.length);
-      for (var i = 0, len = array.length; i < len; i++) {
+      for (let i = 0, len = array.length; i < len; i++) {
         expect(array[i]).toBe(result[i]);
       }
     });

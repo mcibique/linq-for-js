@@ -17,4 +17,20 @@ export default class Iterator {
   toArray() {
     return Array.from(this);
   }
+
+  toMap(keySelector, valueSelector) {
+    if (typeof keySelector !== 'function') {
+      throw new Error('KeySelector must be a function.');
+    }
+    if (typeof valueSelector !== 'function') {
+      throw new Error('ValueSelector must be a function.');
+    }
+
+    let map = new Map();
+    for (let item of this) {
+      map.set(keySelector(item), valueSelector(item));
+    }
+
+    return map;
+  }
 }

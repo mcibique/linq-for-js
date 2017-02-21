@@ -26,7 +26,7 @@ describe('Array.prototype.distinct - performance', function () {
         it('should execute callbacks over each customer', function () {
           let selected = Array.from(result);
           expect(selected).toEqual(['John', 'Joe', 'Adele', 'Ben', 'Jane']);
-          expect(selectCallback).toHaveBeenCalledTimes(5);
+          expect(selectCallback).toHaveBeenCalledTimes(customers.length);
         });
       });
 
@@ -34,7 +34,7 @@ describe('Array.prototype.distinct - performance', function () {
         it('should execute callbacks over each customer', function () {
           let selected = result.toArray();
           expect(selected).toEqual(['John', 'Joe', 'Adele', 'Ben', 'Jane']);
-          expect(selectCallback).toHaveBeenCalledTimes(5);
+          expect(selectCallback).toHaveBeenCalledTimes(customers.length);
         });
       });
 
@@ -42,7 +42,7 @@ describe('Array.prototype.distinct - performance', function () {
         it('should execute callbacks over each customer', function () {
           let selected = [...result];
           expect(selected).toEqual(['John', 'Joe', 'Adele', 'Ben', 'Jane']);
-          expect(selectCallback).toHaveBeenCalledTimes(5);
+          expect(selectCallback).toHaveBeenCalledTimes(customers.length);
         });
       });
 
@@ -50,7 +50,15 @@ describe('Array.prototype.distinct - performance', function () {
         it('should execute callbacks over each customer', function () {
           let aggregated = result.aggregate((prev, curr) => prev + ' | ' + curr);
           expect(aggregated).toBe('John | Joe | Adele | Ben | Jane');
-          expect(selectCallback).toHaveBeenCalledTimes(5);
+          expect(selectCallback).toHaveBeenCalledTimes(customers.length);
+        });
+      });
+
+      describe('via toMap()', function () {
+        it('should execute callbacks over each customer', function () {
+          let map = result.toMap(name => name, name => name.length);
+          expect(map.size).toBe(customers.length);
+          expect(selectCallback).toHaveBeenCalledTimes(customers.length);
         });
       });
     });

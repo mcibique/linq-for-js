@@ -68,6 +68,28 @@ let filtered = array.where(item => item > 3).toArray();
 or
 
 ```js
+let array = [1, 2, 3, 4, 5];
+let filtered = [...array.where(item => item > 3)];
+// [4, 5]
+```
+
+or
+
+```js
+let array = [
+  { id: 1, title: 'Title 1', price: 20 },
+  { id: 2, title: 'Title 2', price: 35 },
+  { id: 3, title: 'Title 3', price: 15 }
+];
+let map = array.where(product => product.price < 30).toMap(product => product.id, product => product.title);
+// [[1, 'Title 1'], [3, 'Title 3']]
+map instanceof Map;
+// true
+```
+
+or
+
+```js
 let customers = [
   { name: 'John', age: 15 },
   { name: 'Joe', age: 19 },
