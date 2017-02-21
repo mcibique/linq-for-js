@@ -35,6 +35,7 @@ LINQ is not only about `select()` and `where()`, it contains a set of chainable 
 * [Max](#max)
 * [Min](#min)
 * [Contains](#contains)
+* [Distinct](#distinct)
 
 # Usage
 ## Where
@@ -215,7 +216,7 @@ let books = [
   { title: 'Title 1', tags: ['novel', 'sci-fi'] },
   { title: 'Title 2', tags: ['drama', 'history'] }
 ];
-let result = array.selectMany(books => books.tags).toArray();
+let result = array.selectMany(book => book.tags).toArray();
 // ['novel', 'sci-fi', 'drama', 'history']
 ```
 
@@ -245,6 +246,13 @@ let result = array.min();
 let array = [1, 2, 3, 4, 5];
 let result = array.contains(3);
 // true
+```
+
+## Distinct
+```js
+let array = [1, 2, 3, 1, 2, 3, 4];
+let result = array.distinct().toArray();
+// [1, 2, 3, 4]
 ```
 
 ## Chaining
@@ -313,6 +321,13 @@ let count = array.where(item => item > 1).take(2);
 ```
 
 ```js
+// where + distinct
+let array = [1, 2, 4, 7, 9, 10, 11, 16];
+let count = array.where(item => item % 2 === 0).distinct().toArray();
+// [2, 4, 10, 16]
+```
+
+```js
 // select + first
 let array = [1, 2, 3, 4, 5];
 let first = array.select(item => item * 2).first();
@@ -366,6 +381,16 @@ let sum = array.select(item => item * 2).takeWhile(i => i < 7).toArray();
 let array = [1, 2, 3, 4, 5];
 let result = array.skip(2).select(item => item ** 2).toArray();
 // [9, 16, 25]
+```
+
+```js
+let books = [
+  { title: 'Title 1', author: 'Author 1', ... },
+  { title: 'Title 2', author: 'Author 2', ... },
+  { title: 'Title 3', author: 'Author 1', ... },
+];
+let result = array.select(book => book.author).distinct().toArray();
+// ['Author 1', 'Author 2', 'Author 1']
 ```
 
 ```js

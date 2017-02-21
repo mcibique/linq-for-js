@@ -3,6 +3,7 @@ import './all';
 import './any';
 import './contains';
 import './count';
+import './distinct';
 import './first';
 import './max';
 import './min';
