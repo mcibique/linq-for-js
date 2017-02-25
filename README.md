@@ -37,6 +37,7 @@ LINQ is not only about `select()` and `where()`, it contains a set of chainable 
 * [Contains](#contains)
 * [Distinct](#distinct)
 * [ElementAt](#elementAt)
+* [Single](#single)
 
 # Usage
 ## Where
@@ -286,6 +287,21 @@ let books = [
 ];
 let result = array.selectMany(book => book.tags).elementAt(2);
 // 'drama'
+```
+
+## Single
+```js
+let array = [1, 2, 3, 4, 5];
+let single = array.single(i => i % 3 === 0);
+// 3
+```
+
+or
+
+```js
+let array = [1, 2, 3, 4, 5];
+let single = array.single(i => i % 2 === 0);
+// Error: More than one element found.
 ```
 
 ## Chaining
