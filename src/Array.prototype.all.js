@@ -4,6 +4,7 @@ import './any';
 import './contains';
 import './count';
 import './distinct';
+import './elementAt';
 import './first';
 import './max';
 import './min';

@@ -102,4 +102,35 @@ describe('Array.prototype.select - performance', function () {
       });
     });
   });
+
+  describe('select + elementAt', function () {
+    let selectCallback;
+
+    beforeEach(function () {
+      selectCallback = jest.fn((customer) => customer.name);
+    });
+
+    describe('chaining', function () {
+      let result;
+
+      beforeEach(function () {
+        result = customers.select(selectCallback);
+      });
+
+      it('should not execute any condition or callback before first iteration', function () {
+        expect(selectCallback).not.toHaveBeenCalled();
+      });
+
+      describe('when iteration is performed', function () {
+        beforeEach(function () {
+          result = result.elementAt(2);
+        });
+
+        it('should execute select callback only for first three items', function () {
+          expect(result).toBe('Adele');
+          expect(selectCallback).toHaveBeenCalledTimes(3);
+        });
+      });
+    });
+  });
 });

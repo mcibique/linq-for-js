@@ -36,6 +36,7 @@ LINQ is not only about `select()` and `where()`, it contains a set of chainable 
 * [Min](#min)
 * [Contains](#contains)
 * [Distinct](#distinct)
+* [ElementAt](#elementAt)
 
 # Usage
 ## Where
@@ -277,6 +278,16 @@ let result = array.distinct().toArray();
 // [1, 2, 3, 4]
 ```
 
+## ElementAt
+```js
+let books = [
+  { title: 'Title 1', tags: ['novel', 'sci-fi'] },
+  { title: 'Title 2', tags: ['drama', 'history'] }
+];
+let result = array.selectMany(book => book.tags).elementAt(2);
+// 'drama'
+```
+
 ## Chaining
 
 ```js
@@ -350,6 +361,13 @@ let count = array.where(item => item % 2 === 0).distinct().toArray();
 ```
 
 ```js
+// where + elementAt
+let array = [1, 2, 3, 4, 5];
+let first = array.where(item => item > 2).elementAt(1);
+// 4
+```
+
+```js
 // select + first
 let array = [1, 2, 3, 4, 5];
 let first = array.select(item => item * 2).first();
@@ -406,6 +424,14 @@ let result = array.skip(2).select(item => item ** 2).toArray();
 ```
 
 ```js
+// select + elementAt
+let array = [1, 2, 3, 4, 5];
+let sum = array.select(item => item * 2).elementAt(4);
+// 10
+```
+
+```js
+// select + distinct
 let books = [
   { title: 'Title 1', author: 'Author 1', ... },
   { title: 'Title 2', author: 'Author 2', ... },
@@ -499,4 +525,3 @@ let customers = [
 let min = customers.selectMany(customer => customer.orders).select(order => order.total).min();
 // 150
 ```
-
