@@ -10,6 +10,7 @@ import './max';
 import './min';
 import './select';
 import './selectMany';
+import './single';
 import './skip';
 import './sum';
 import './take';
