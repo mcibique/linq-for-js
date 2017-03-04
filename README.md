@@ -19,6 +19,26 @@ Here, the `where()` command executes until it finds first customer with age over
 
 LINQ is not only about `select()` and `where()`, it contains a set of chainable [methods](#methods-implemented) which allows you to build up a query and then execute it. Checkout how they fits together in [Chaining](#chaining) examples.
 
+# Installing
+
+```bash
+npm install linq-for-js --save --save-exact
+```
+or using yarn
+```bash
+yarn add linq-for-js --exact
+```
+
+### Using directly in browser
+Linq-for-js requires babel-polyfill to run in browser. The polyfill is not included in the bundle and must be added before the `linq-for-js.min.js`.
+```bash
+npm install babel-polyfill --save --save-exact
+```
+```html
+<script src="/node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+<script src="/node_modules/linq-for-js/dist/linq-for-js.min.js"></script>
+```
+
 # Methods implemented
 * [Where](#where)
 * [First](#first)
