@@ -38,6 +38,7 @@ LINQ is not only about `select()` and `where()`, it contains a set of chainable 
 * [Distinct](#distinct)
 * [ElementAt](#elementAt)
 * [Single](#single)
+* [Average](#average)
 
 # Usage
 ## Where
@@ -304,6 +305,13 @@ let single = array.single(i => i % 2 === 0);
 // Error: More than one element found.
 ```
 
+## Average
+```js
+let array = [1, 2, 3, 4, 5];
+let average = array.average();
+// 3
+```
+
 ## Chaining
 
 ```js
@@ -318,6 +326,13 @@ let first = array.where(item => item > 2).first();
 let array = [1, 2, 3, 4, 5];
 let count = array.where(item => item > 3).count();
 // 2
+```
+
+```js
+// where + average
+let array = [1, 2, 3, 4, 5];
+let average = array.where(item => item > 3).average();
+// 4.5
 ```
 
 ```js
