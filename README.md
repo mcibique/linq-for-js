@@ -24,10 +24,6 @@ LINQ is not only about `select()` and `where()`, it contains a set of chainable 
 ```bash
 npm install linq-for-js --save --save-exact
 ```
-or using yarn
-```bash
-yarn add linq-for-js --exact
-```
 
 ### Using directly in browser
 Linq-for-js requires babel-polyfill to run in browser. The polyfill is not included in the bundle and must be added before the `linq-for-js.min.js`.
