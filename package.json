@@ -6,9 +6,9 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "cross-env BABEL_ENV=rollup rollup -c rollup.config.js",
-    "release:patch": "npm run test && npm run build && npm version patch && git push --tags && npm publish",
-    "release:minor": "npm run test && npm run build && npm version minor && git push --tags && npm publish",
-    "release:major": "npm run test && npm run build && npm version major && git push --tags && npm publish",
+    "release:patch": "npm run test && npm run build && npm version patch && git push origin HEAD --tags && npm publish",
+    "release:minor": "npm run test && npm run build && npm version minor && git push origin HEAD --tags && npm publish",
+    "release:major": "npm run test && npm run build && npm version major && git push origin HEAD --tags && npm publish",
     "test": "jest --coverage",
     "watch": "jest --watch --coverage"
   },
