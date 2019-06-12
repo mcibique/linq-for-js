@@ -17,7 +17,7 @@ let customerId = query.first(); // get me the first customer ID which matches th
 ```
 Here, the `where()` command executes until it finds first customer with age over 18. Then the `select()` command is performed only with filtered customer and the result is returned.
 
-LINQ is not only about `select()` and `where()`, it contains a set of chainable [methods](#methods-implemented) which allows you to build up a query and then execute it. Checkout how they fits together in [Chaining](#chaining) examples.
+LINQ is not only about `select()` and `where()`, it contains a set of chainable [methods](#methods-implemented) which allows you to build up a query and then execute it. Check out how they fit together in [Chaining](#chaining) examples.
 
 # Installing
 
